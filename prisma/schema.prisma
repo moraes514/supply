@@ -1,0 +1,181 @@
+// ============================================
+// SCHEMA DO BANCO DE DADOS - PRISMA ORM
+// ============================================
+// Este arquivo define toda a estrutura do banco de dados do e-commerce Supply
+// Usando Prisma ORM para gerenciar modelos, relações e migrações
+
+// Configuração do gerador do cliente Prisma
+// Gera o código TypeScript para interagir com o banco de dados
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Configuração da fonte de dados (banco de dados)
+// SQLite para desenvolvimento (arquivo local)
+// Em produção, trocar para PostgreSQL ou MySQL
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL") // URL vem do arquivo .env
+}
+
+// ============================================
+// MODEL: USER (USUÁRIO)
+// ============================================
+// Armazena informações dos usuários cadastrados no sistema
+model User {
+  id        String    @id @default(cuid()) // ID único gerado automaticamente
+  email     String    @unique              // Email único para login
+  password  String                         // Senha criptografada com bcrypt
+  name      String                         // Nome completo do usuário
+  phone     String?                        // Telefone (opcional)
+  createdAt DateTime  @default(now())      // Data de criação da conta
+  updatedAt DateTime  @updatedAt           // Data da última atualização
+  
+  // Relações: Um usuário pode ter múltiplos endereços e pedidos
+  addresses Address[]
+  orders    Order[]
+}
+
+// ============================================
+// MODEL: ADDRESS (ENDEREÇO)
+// ============================================
+// Armazena os endereços de entrega dos usuários
+model Address {
+  id           String  @id @default(cuid()) // ID único do endereço
+  userId       String                       // ID do usuário dono deste endereço
+  street       String                       // Nome da rua
+  number       String                       // Número da casa/apto
+  complement   String?                      // Complemento (opcional)
+  neighborhood String                       // Bairro
+  city         String                       // Cidade
+  state        String                       // Estado (UF)
+  zipCode      String                       // CEP
+  country      String  @default("Brasil")   // País (padrão: Brasil)
+  isDefault    Boolean @default(false)      // Se é o endereço padrão
+  
+  // Relação: Cada endereço pertence a um usuário
+  // onDelete: Cascade = se o usuário for deletado, seus endereços também são
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Índice para buscar endereços por usuário rapidamente
+  @@index([userId])
+}
+
+// ============================================
+// MODEL: CATEGORY (CATEGORIA)
+// ============================================
+// Categorias de produtos (Camisetas, Calças, Jaquetas, etc.)
+model Category {
+  id          String    @id @default(cuid()) // ID único da categoria
+  name        String                         // Nome da categoria (ex: "Camisetas")
+  slug        String    @unique              // URL amigável (ex: "camisetas")
+  description String?                        // Descrição da categoria (opcional)
+  createdAt   DateTime  @default(now())      // Data de criação
+  
+  // Relação: Uma categoria pode ter múltiplos produtos
+  products Product[]
+}
+
+// ============================================
+// MODEL: PRODUCT (PRODUTO)
+// ============================================
+// Produtos disponíveis para venda no e-commerce
+model Product {
+  id          String   @id @default(cuid())    // ID único do produto
+  name        String                           // Nome do produto
+  description String                           // Descrição detalhada
+  price       Float                            // Preço original
+  categoryId  String                           // ID da categoria deste produto
+  images      String   // JSON array de URLs   // Array de URLs das imagens (armazenado como JSON)
+  sizes       String   // JSON array de tamanhos // Tamanhos disponíveis (ex: ["P", "M", "G"])
+  colors      String   // JSON array de cores  // Cores disponíveis (ex: ["Preto", "Branco"])
+  stock       Int      @default(0)             // Quantidade em estoque
+  featured    Boolean  @default(false)         // Se é produto destaque na home
+  isNew       Boolean  @default(false)         // Se é lançamento
+  onSale      Boolean  @default(false)         // Se está em promoção
+  salePrice   Float?                           // Preço promocional (opcional)
+  gender      String   @default("UNISEX")      // Gênero: MALE, FEMALE ou UNISEX
+  createdAt   DateTime @default(now())         // Data de criação
+  updatedAt   DateTime @updatedAt              // Data da última atualização
+  
+  // Relações
+  category   Category    @relation(fields: [categoryId], references: [id])
+  orderItems OrderItem[] // Itens de pedido que incluem este produto
+  
+  // Índices para otimizar buscas
+  @@index([categoryId])  // Buscar produtos por categoria
+  @@index([gender])      // Buscar produtos por gênero
+  @@index([featured])    // Buscar produtos em destaque
+}
+
+// ============================================
+// MODEL: ORDER (PEDIDO)
+// ============================================
+// Pedidos realizados pelos usuários
+model Order {
+  id              String      @id @default(cuid())    // ID único do pedido
+  userId          String                              // ID do usuário que fez o pedido
+  orderNumber     String      @unique                 // Número do pedido (ex: "ORD-2024-0001")
+  status          String @default("PENDING")          // Status: PENDING, PAID, SHIPPED, DELIVERED
+  total           Float                               // Valor total do pedido
+  subtotal        Float                               // Subtotal (sem frete)
+  shipping        Float                               // Valor do frete
+  tax             Float       @default(0)             // Impostos (se aplicável)
+  shippingAddress String      // JSON                 // Endereço de entrega (JSON)
+  billingAddress  String      // JSON                 // Endereço de cobrança (JSON)
+  trackingCode    String?                             // Código de rastreamento (opcional)
+  createdAt       DateTime    @default(now())         // Data de criação do pedido
+  updatedAt       DateTime    @updatedAt              // Data da última atualização
+  
+  // Relações
+  user         User           @relation(fields: [userId], references: [id])
+  items        OrderItem[]    // Itens incluídos neste pedido
+  trackingLogs TrackingLog[]  // Logs de rastreamento
+  
+  // Índices para otimizar buscas
+  @@index([userId])      // Buscar pedidos por usuário
+  @@index([orderNumber]) // Buscar pedido por número
+}
+
+// ============================================
+// MODEL: ORDER ITEM (ITEM DO PEDIDO)
+// ============================================
+// Cada produto individual dentro de um pedido
+model OrderItem {
+  id        String @id @default(cuid()) // ID único do item
+  orderId   String                      // ID do pedido ao qual pertence
+  productId String                      // ID do produto
+  quantity  Int                         // Quantidade comprada
+  price     Float                       // Preço no momento da compra
+  size      String                      // Tamanho escolhido
+  color     String                      // Cor escolhida
+  
+  // Relações
+  // onDelete: Cascade = se o pedido for deletado, seus itens também são
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+  
+  // Índices para otimizar buscas
+  @@index([orderId])   // Buscar itens por pedido
+  @@index([productId]) // Buscar itens por produto
+}
+
+// ============================================
+// MODEL: TRACKING LOG (LOG DE RASTREAMENTO)
+// ============================================
+// Histórico de rastreamento de cada pedido
+model TrackingLog {
+  id          String   @id @default(cuid()) // ID único do log
+  orderId     String                        // ID do pedido rastreado
+  status      String                        // Status (ex: "Em trânsito", "Saiu para entrega")
+  location    String                        // Localização atual
+  description String                        // Descrição do evento
+  timestamp   DateTime @default(now())      // Data e hora do evento
+  
+  // Relação: Cada log pertence a um pedido
+  // onDelete: Cascade = se o pedido for deletado, seus logs também são
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  // Índice para buscar logs por pedido
+  @@index([orderId])
+}
