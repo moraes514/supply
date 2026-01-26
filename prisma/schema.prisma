@@ -11,10 +11,9 @@ generator client {
 }
 
 // Configuração da fonte de dados (banco de dados)
-// SQLite para desenvolvimento (arquivo local)
-// Em produção, trocar para PostgreSQL ou MySQL
+// PostgreSQL para produção (Render) e desenvolvimento
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL") // URL vem do arquivo .env
 }
 
