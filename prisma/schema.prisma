@@ -95,6 +95,7 @@ model Product {
   onSale      Boolean  @default(false)         // Se está em promoção
   salePrice   Float?                           // Preço promocional (opcional)
   gender      String   @default("UNISEX")      // Gênero: MALE, FEMALE ou UNISEX
+  active      Boolean  @default(true)          // Se está ativo no catálogo
   createdAt   DateTime @default(now())         // Data de criação
   updatedAt   DateTime @updatedAt              // Data da última atualização
   
@@ -106,6 +107,7 @@ model Product {
   @@index([categoryId])  // Buscar produtos por categoria
   @@index([gender])      // Buscar produtos por gênero
   @@index([featured])    // Buscar produtos em destaque
+  @@index([active])      // Buscar produtos ativos
 }
 
 // ============================================

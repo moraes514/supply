@@ -23,6 +23,7 @@ async function getRelatedProducts(categoryId: string, currentProductId: string) 
             where: {
                 categoryId,
                 id: { not: currentProductId },
+                active: true,
             },
             take: 4,
         })

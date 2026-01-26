@@ -5,6 +5,7 @@ async function getProducts(gender: 'MALE' | 'FEMALE') {
     try {
         const products = await prisma.product.findMany({
             where: {
+                active: true,
                 OR: [
                     { gender },
                     { gender: 'UNISEX' },

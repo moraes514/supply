@@ -6,21 +6,22 @@ async function getProducts() {
     try {
         const [newProducts, bestSellers, essentials, onSale] = await Promise.all([
             prisma.product.findMany({
-                where: { isNew: true },
+                where: { isNew: true, active: true },
                 take: 8,
                 orderBy: { createdAt: 'desc' },
             }),
             prisma.product.findMany({
-                where: { featured: true },
+                where: { featured: true, active: true },
                 take: 8,
                 orderBy: { createdAt: 'desc' },
             }),
             prisma.product.findMany({
+                where: { active: true },
                 take: 8,
                 orderBy: { createdAt: 'desc' },
             }),
             prisma.product.findMany({
-                where: { onSale: true },
+                where: { onSale: true, active: true },
                 take: 8,
                 orderBy: { createdAt: 'desc' },
             }),

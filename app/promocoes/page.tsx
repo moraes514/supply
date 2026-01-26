@@ -6,6 +6,7 @@ async function getSaleProducts() {
         const products = await prisma.product.findMany({
             where: {
                 onSale: true,
+                active: true,
             },
             orderBy: {
                 createdAt: 'desc',

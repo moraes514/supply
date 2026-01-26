@@ -10,7 +10,7 @@ export async function GET(request: Request) {
         const onSale = searchParams.get('onSale')
         const search = searchParams.get('search')
 
-        const where: any = {}
+        const where: any = { active: true }
 
         if (gender) where.gender = gender.toUpperCase()
         if (category) where.categoryId = category
