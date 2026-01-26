@@ -13,6 +13,8 @@ const nextConfig = {
             bodySizeLimit: '2mb',
         },
     },
+    // Desabilitar otimização de fontes para evitar timeout no Render
+    optimizeFonts: false,
 }
 
 module.exports = nextConfig
