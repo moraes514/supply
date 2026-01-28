@@ -1,155 +1,122 @@
-# Guia de Deploy no Render - Supply E-commerce
+# Deploy no Render - Supply E-commerce
 
-Este guia contém todos os passos necessários para fazer deploy da aplicação Supply no Render.
+## 🚀 Instruções Completas
 
-## 📋 Pré-requisitos
+### 1. Criar PostgreSQL Database
 
-- ✅ Código no GitHub: `https://github.com/moraes514/supply.git`
-- ✅ Prisma configurado para PostgreSQL
-- ⬜ Conta no Render.com
+1. No Render Dashboard, clique em **"New +"**
+2. Selecione **"PostgreSQL"**
+3. Configure:
+   - Name: `supply-db`
+   - Database: `supply`
+   - User: `supply_user`
+   - Region: `Oregon (US West)`
+   - PostgreSQL Version: `16`
+4. Clique em **"Create Database"**
+5. **COPIE** a **"Internal Database URL"** (começa com `postgresql://...`)
 
----
+### 2. Criar Web Service
 
-## 🚀 Passo a Passo
-
-### 1. Criar Conta no Render
-
-1. Acesse [render.com](https://render.com)
-2. Clique em **"Get Started for Free"**
-3. Faça login com sua conta GitHub (recomendado)
-
-### 2. Criar Banco de Dados PostgreSQL
-
-1. No dashboard do Render, clique em **"New +"** → **"PostgreSQL"**
-2. Configure:
-   - **Name**: `supply-db`
-   - **Database**: `supply`
-   - **User**: (mantenha o padrão)
-   - **Region**: escolha a mais próxima (ex: Ohio - US East)
-   - **Plan**: **Free** (para teste)
-3. Clique em **"Create Database"**
-4. ⚠️ **IMPORTANTE**: Copie a **Internal Database URL** - você vai precisar dela!
-
-### 3. Criar Serviço Web
-
-1. No dashboard, clique em **"New +"** → **"Web Service"**
-2. Conecte seu repositório GitHub:
-   - Clique em **"Connect a repository"**
-   - Autorize o Render no GitHub se solicitado
-   - Selecione o repositório: **`moraes514/supply`**
-3. Configure o serviço:
-   - **Name**: `supply-ecommerce` (ou o nome que preferir)
-   - **Region**: mesma do banco de dados (Ohio - US East)
+1. No Render Dashboard, clique em **"New +"**
+2. Selecione **"Web Service"**
+3. Conecte seu repositório GitHub `supply`
+4. Configure:
+   - **Name**: `supply` (ou outro nome de sua preferência)
+   - **Region**: `Oregon (US West)` (mesma região do banco)
    - **Branch**: `main`
-   - **Root Directory**: (deixe em branco)
+   - **Root Directory**: deixe em branco
    - **Runtime**: `Node`
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
-   - **Plan**: **Free**
 
-### 4. Configurar Variáveis de Ambiente
+### 3. Adicionar Variáveis de Ambiente
 
 Na seção **"Environment Variables"**, adicione:
 
+#### DATABASE_URL
 ```
-DATABASE_URL = [Cole aqui a Internal Database URL copiada no passo 2]
-NEXTAUTH_SECRET = [Gere uma string aleatória segura - veja abaixo]
-NEXTAUTH_URL = https://supply-ecommerce.onrender.com
+Cole aqui a Internal Database URL do PostgreSQL que você criou
+Exemplo: postgresql://supply_user:abc123@dpg-xxxx-oregon-postgres.render.com/supply_db
 ```
 
-**Para gerar o NEXTAUTH_SECRET**, use um dos métodos:
-- Online: https://generate-secret.vercel.app/32
-- Terminal: `openssl rand -base64 32`
+#### NEXTAUTH_SECRET
+Gere um com PowerShell:
+```powershell
+-join ((48..57) + (65..90) + (97..122) | Get-Random -Count 64 | ForEach-Object {[char]$_})
+```
+Exemplo: `a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2`
 
-⚠️ **Ajuste a `NEXTAUTH_URL`** com o nome que você escolheu no passo 3!
+#### NEXTAUTH_URL
+```
+https://supply.onrender.com
+```
+(Substitua "supply" pelo nome que você escolheu para o Web Service)
 
-### 5. Iniciar Deploy
+### 4. Deploy
 
 1. Clique em **"Create Web Service"**
-2. O Render iniciará o build automaticamente
-3. Aguarde (pode levar 5-10 minutos na primeira vez)
-4. Acompanhe os logs em tempo real
-
-### 6. Executar Migrações do Banco
-
-Após o deploy inicial completar:
-
-1. No dashboard do serviço web, vá em **"Shell"** (na barra lateral)
-2. Execute os seguintes comandos:
-
-```bash
-# Aplicar as migrações
-npx prisma migrate deploy
-
-# Popular o banco com dados iniciais
-npm run db:seed
-```
-
-### 7. Acessar a Aplicação
-
-Sua aplicação estará disponível em:
-```
-https://supply-ecommerce.onrender.com
-```
-(ou o nome que você escolheu)
+2. Aguarde o build (~10-15 minutos)
+3. O deploy será feito automaticamente
 
 ---
 
-## ✅ Verificação
+## ⚠️ Limitações do Plano Gratuito
 
-Teste as seguintes funcionalidades:
-
-- [ ] Página inicial carrega
-- [ ] Produtos são exibidos
-- [ ] Cadastro de novo usuário funciona
-- [ ] Login funciona
-- [ ] Carrinho funciona
-- [ ] Imagens dos produtos aparecem
+- ⏱️ Build timeout: 15 minutos
+- 💾 RAM durante build: 512MB
+- 🌐 App "hiberna" após 15min de inatividade
+- 📊 PostgreSQL gratuito: 90 dias
 
 ---
 
 ## 🔧 Troubleshooting
 
-### Erro: "Failed to connect to database"
-- Verifique se a `DATABASE_URL` está correta
-- Certifique-se de estar usando a **Internal Database URL**
+### Erro de Memória
+O projeto já está otimizado para o limite de 512MB do Render. Se ainda assim falhar:
+- Considere usar Vercel (plano gratuito mais generoso para Next.js)
+- Ou fazer upgrade para o plano pago do Render ($7/mês)
 
-### Erro: "NEXTAUTH_URL misconfigured"
-- Verifique se a `NEXTAUTH_URL` corresponde ao domínio do Render
-- Deve ser: `https://[seu-app-name].onrender.com`
+### Erro de Build
+Verifique se:
+- ✅ DATABASE_URL está correta
+- ✅ As 3 variáveis de ambiente estão configuradas
+- ✅ O banco PostgreSQL está rodando
+- ✅ A região do Web Service é a mesma do banco
 
-### Build falha
-- Verifique os logs no Render
-- Certifique-se de que o código foi atualizado no GitHub
-
-### Prisma schema errors
-- Execute `npx prisma generate` no shell do Render
-- Verifique se as migrações foram aplicadas
-
----
-
-## 📝 Notas Importantes
-
-- ⚠️ O plano **Free** do Render hiberna após 15 minutos de inatividade
-- ⚠️ O primeiro acesso após hibernação pode levar 30-60 segundos
-- ⚠️ O banco de dados Free expira após 90 dias
-- 💡 Para produção definitiva, considere upgrade para plano pago
+### Após Deploy
+1. Acesse a URL fornecida pelo Render
+2. Teste o login: `teste@supply.com` / `123456`
+3. Se der erro 500, verifique os logs no dashboard do Render
 
 ---
 
-## 🔄 Atualizações Futuras
+## 📝 Comandos Executados no Deploy
 
-Para fazer deploy de novas alterações:
+O Render executa automaticamente:
 
-1. Faça commit e push para o GitHub:
-   ```bash
-   git add .
-   git commit -m "Descrição das mudanças"
-   git push origin main
-   ```
+```bash
+# Install
+npm install
 
-2. O Render detectará as mudanças e fará re-deploy automaticamente!
+# Build (definido em package.json)
+NODE_OPTIONS='--max_old_space_size=480' prisma generate && prisma migrate deploy && next build
+
+# Start
+npm start
+```
 
 ---
 
-**Pronto! Sua aplicação está no ar! 🎉**
+## ✅ Checklist Final
+
+Antes de fazer deploy, certifique-se de que:
+- [ ] PostgreSQL Database criado no Render
+- [ ] DATABASE_URL copiada e adicionada nas variáveis de ambiente
+- [ ] NEXTAUTH_SECRET gerado e adicionado
+- [ ] NEXTAUTH_URL configurada com a URL do seu app
+- [ ] Web Service criado e conectado ao GitHub
+- [ ] Branch `main` está atualizada
+
+---
+
+🎉 **Pronto! Seu e-commerce estará online em alguns minutos!**
