@@ -21,8 +21,6 @@ const nextConfig = {
     // Reduzir uso de memória durante build
     productionBrowserSourceMaps: false,
     compress: true,
-    // Output standalone para reduzir tamanho
-    output: 'standalone',
     // Desabilitar otimizações pesadas
     eslint: {
         ignoreDuringBuilds: true,
