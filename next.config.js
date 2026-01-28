@@ -13,18 +13,22 @@ const nextConfig = {
             bodySizeLimit: '2mb',
         },
     },
-    // Configurações para deploy no Render (otimizado para 512MB RAM)
-    swcMinify: false,
+    // Configurações otimizadas para Render (512MB limit)
+    swcMinify: true, // SWC é mais eficiente que Terser
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
-    // Desabilitar source maps em produção para economizar memória
+    // Reduzir uso de memória durante build
     productionBrowserSourceMaps: false,
-    // Otimizar tamanho do build
     compress: true,
-    // Reduzir uso de memória
-    generateBuildId: async () => {
-        return 'build-' + Date.now()
+    // Output standalone para reduzir tamanho
+    output: 'standalone',
+    // Desabilitar otimizações pesadas
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    typescript: {
+        ignoreBuildErrors: false,
     },
 }
 

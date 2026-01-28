@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "NODE_OPTIONS='--max_old_space_size=460' prisma generate && prisma migrate deploy && next build",
+    "prebuild": "prisma generate && prisma migrate deploy",
+    "build": "NODE_OPTIONS='--max_old_space_size=400' next build",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
