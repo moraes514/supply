@@ -13,8 +13,11 @@ const nextConfig = {
             bodySizeLimit: '2mb',
         },
     },
-    // Desabilitar otimização de fontes para evitar timeout no Render
-    optimizeFonts: false,
+    // Configurações para deploy no Render
+    swcMinify: false,
+    compiler: {
+        removeConsole: process.env.NODE_ENV === 'production',
+    },
 }
 
 module.exports = nextConfig
