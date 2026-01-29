@@ -28,6 +28,8 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: false,
     },
+    // Desabilitar otimização de fontes para evitar timeouts no Render
+    optimizeFonts: false,
 }
 
 module.exports = nextConfig
