@@ -1,35 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Static export configuration
+    output: 'export',
+    trailingSlash: true,
+
     images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: '**',
-            },
-        ],
+        unoptimized: true, // Required for static export
     },
-    experimental: {
-        serverActions: {
-            bodySizeLimit: '2mb',
-        },
-    },
-    // Configurações otimizadas para Render (512MB limit)
-    swcMinify: true, // SWC é mais eficiente que Terser
-    compiler: {
-        removeConsole: process.env.NODE_ENV === 'production',
-    },
-    // Reduzir uso de memória durante build
-    productionBrowserSourceMaps: false,
+
+    // Build optimizations
+    swcMinify: true,
     compress: true,
-    // Desabilitar otimizações pesadas
+    productionBrowserSourceMaps: false,
+
+    // Ignore linting and type errors during build (optional)
     eslint: {
         ignoreDuringBuilds: true,
     },
     typescript: {
         ignoreBuildErrors: false,
     },
-    // Desabilitar otimização de fontes para evitar timeouts no Render
-    optimizeFonts: false,
 }
 
 module.exports = nextConfig

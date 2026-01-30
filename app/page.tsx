@@ -1,50 +1,28 @@
 import HeroBanner from '@/components/ui/HeroBanner'
 import ProductCarousel from '@/components/product/ProductCarousel'
-import { prisma } from '@/lib/prisma'
+import {
+    getNewProducts,
+    getFeaturedProducts,
+    getSaleProducts,
+    getAllProducts,
+    type Product,
+} from '@/lib/data'
 
-async function getProducts() {
-    try {
-        const [newProducts, bestSellers, essentials, onSale] = await Promise.all([
-            prisma.product.findMany({
-                where: { isNew: true, active: true },
-                take: 8,
-                orderBy: { createdAt: 'desc' },
-            }),
-            prisma.product.findMany({
-                where: { featured: true, active: true },
-                take: 8,
-                orderBy: { createdAt: 'desc' },
-            }),
-            prisma.product.findMany({
-                where: { active: true },
-                take: 8,
-                orderBy: { createdAt: 'desc' },
-            }),
-            prisma.product.findMany({
-                where: { onSale: true, active: true },
-                take: 8,
-                orderBy: { createdAt: 'desc' },
-            }),
-        ])
-
-        return { newProducts, bestSellers, essentials, onSale }
-    } catch (error) {
-        console.error('Error fetching products:', error)
-        return { newProducts: [], bestSellers: [], essentials: [], onSale: [] }
-    }
-}
-
-export default async function HomePage() {
-    const { newProducts, bestSellers, essentials, onSale } = await getProducts()
+export default function HomePage() {
+    // Buscar produtos estáticos
+    const newProducts = getNewProducts(8)
+    const bestSellers = getFeaturedProducts(8)
+    const essentials = getAllProducts().slice(0, 8)
+    const onSale = getSaleProducts(8)
 
     // Transform products for carousel
-    const transformProducts = (products: any[]) =>
+    const transformProducts = (products: Product[]) =>
         products.map((p) => ({
             id: p.id,
             name: p.name,
             price: p.price,
             salePrice: p.salePrice,
-            image: JSON.parse(p.images)[0] || '/placeholder.jpg',
+            image: p.images[0] || '/placeholder.jpg',
             featured: p.featured,
             isNew: p.isNew,
             onSale: p.onSale,

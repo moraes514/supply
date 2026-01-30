@@ -1,42 +1,25 @@
-import { prisma } from '@/lib/prisma'
+import { getAllProducts } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
 
-async function getNewProducts() {
-    try {
-        const products = await prisma.product.findMany({
-            where: {
-                isNew: true,
-                active: true,
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        })
-
-        return products
-    } catch (error) {
-        return []
-    }
-}
-
-export default async function LancamentosPage() {
-    const products = await getNewProducts()
+export default function CatalogoPage() {
+    // Mostrar TODOS os produtos do catálogo
+    const products = getAllProducts()
 
     return (
         <div className="min-h-screen px-4 py-24">
             <div className="max-w-7xl mx-auto">
                 <div className="mb-12">
                     <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-                        Lançamentos
+                        Catálogo Completo
                     </h1>
                     <p className="text-gray-400">
-                        Confira os produtos mais recentes
+                        Explore toda a nossa coleção de tênis exclusivos ({products.length} produtos)
                     </p>
                 </div>
 
                 {products.length === 0 ? (
                     <div className="text-center py-20">
-                        <p className="text-gray-400">Nenhum lançamento no momento</p>
+                        <p className="text-gray-400">Nenhum produto disponível</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -47,7 +30,7 @@ export default async function LancamentosPage() {
                                 name={product.name}
                                 price={product.price}
                                 salePrice={product.salePrice || undefined}
-                                image={JSON.parse(product.images)[0]}
+                                image={product.images[0]}
                                 featured={product.featured}
                                 isNew={product.isNew}
                                 onSale={product.onSale}

@@ -1,0 +1,434 @@
+[
+    {
+        "id": "1",
+        "name": "Nike Kobe 6 Protro Grinch",
+        "description": "O icônico Kobe 6 Grinch em sua versão Protro. Colorway lendária de Natal com cabedal verde neon vibrante e detalhes em preto. Tecnologia Zoom Air para máximo conforto e performance.",
+        "price": 600,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/kobe-6-grinch.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Verde Neon/Preto"
+        ],
+        "stock": 15,
+        "featured": true,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "2",
+        "name": "Nike Air Force 1 Low Supreme White",
+        "description": "Colaboração exclusiva entre Nike e Supreme. Air Force 1 Low em couro branco premium com o icônico box logo Supreme em vermelho.",
+        "price": 600,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/air-force-1-supreme.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Branco/Vermelho"
+        ],
+        "stock": 8,
+        "featured": true,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "3",
+        "name": "Nike Air Max Plus TN Sunset",
+        "description": "O lendário Air Max Plus em sua colorway Sunset. Gradiente vibrante de laranja e amarelo que remete ao pôr do sol.",
+        "price": 600,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/air-max-tn-sunset.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Laranja/Amarelo/Preto"
+        ],
+        "stock": 20,
+        "featured": true,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "8",
+        "name": "Yeezy Boost 350 V2 \"Clay\"",
+        "description": "Adidas Yeezy Boost 350 V2 em colorway Clay. Primeknit laranja-terracota.",
+        "price": 400,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/yeezy-boost-clay.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Clay"
+        ],
+        "stock": 20,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "9",
+        "name": "Yeezy Boost 350 V2 \"True Form\"",
+        "description": "Adidas Yeezy Boost 350 V2 em colorway True Form (Trfrm). Primeknit bege com sola gum.",
+        "price": 400,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/yeezy-boost-true-form.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "True Form"
+        ],
+        "stock": 20,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "10",
+        "name": "Yeezy Boost 350 V2 \"Onyx\"",
+        "description": "Adidas Yeezy Boost 350 V2 em colorway Onyx. Primeknit totalmente preto com stripe tonal.",
+        "price": 400,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/yeezy-boost-onyx.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Onyx"
+        ],
+        "stock": 20,
+        "featured": true,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "14",
+        "name": "Nike Ja 3 Morant \"Pink\"",
+        "description": "Nike Ja 3 Morant em Pink. Tênis de basquete rosa vibrante.",
+        "price": 600,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/nike-ja-3-pink.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Rosa"
+        ],
+        "stock": 15,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "15",
+        "name": "Nike Ja 3 Morant \"Black\"",
+        "description": "Nike Ja 3 Morant em Black. Tênis de basquete totalmente preto.",
+        "price": 600,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/nike-ja-3-black.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Preto"
+        ],
+        "stock": 15,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "16",
+        "name": "Nike Ja 3 Morant \"Multicolor Mismatch\"",
+        "description": "Nike Ja 3 Morant Mismatch. Design descombinado e cores vibrantes.",
+        "price": 600,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/nike-ja-3-multicolor.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Multicolor"
+        ],
+        "stock": 10,
+        "featured": true,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "18",
+        "name": "Nike Air Max 97 \"Black\"",
+        "description": "Nike Air Max 97 em Black. Icônico runner dos anos 90 totalmente preto.",
+        "price": 430,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/air-max-97-black.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Preto"
+        ],
+        "stock": 30,
+        "featured": false,
+        "isNew": false,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "28",
+        "name": "Nike SB Dunk Low \"What The Dunk\"",
+        "description": "Nike SB Dunk Low What The Dunk. Edição especial multicolorida icônica.",
+        "price": 550,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/nike-sb-dunk-what-the-dunk.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Multicolor"
+        ],
+        "stock": 5,
+        "featured": true,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "29",
+        "name": "Nike SB Dunk Low \"Nardwuar\"",
+        "description": "Nike SB Dunk Low Nardwuar. Colaboração exclusiva e rara.",
+        "price": 550,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/nike-sb-dunk-nardwuar.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Multicolor"
+        ],
+        "stock": 5,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "31",
+        "name": "Nike SB Dunk Low \"Zodiac Rattan\"",
+        "description": "Nike SB Dunk Low Zodiac/Rattan. Design inspirado em zodíaco.",
+        "price": 550,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/nike-sb-dunk-zodiac-rattan.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Bege/Marrom"
+        ],
+        "stock": 5,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "32",
+        "name": "Nike Air Max Plus \"Wolf Grey\"",
+        "description": "Nike Air Max Plus em Wolf Grey. Design clássico TN em cinza lobo.",
+        "price": 400,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/air-max-plus-wolf-grey.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Cinza"
+        ],
+        "stock": 25,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "35",
+        "name": "Nike Air Max Plus \"White Mica Green\"",
+        "description": "Nike Air Max Plus em White Mica Green. Branco com detalhes verdes.",
+        "price": 400,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/air-max-plus-white-mica-green.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Branco/Verde"
+        ],
+        "stock": 25,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    },
+    {
+        "id": "36",
+        "name": "Nike Air Max Plus \"Red Swoosh\"",
+        "description": "Nike Air Max Plus com Red Swoosh. Swoosh vermelho destacado.",
+        "price": 400,
+        "categoryId": "tenis",
+        "images": [
+            "/images/products/tenis/air-max-plus-red-swoosh.png"
+        ],
+        "sizes": [
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44"
+        ],
+        "colors": [
+            "Preto/Vermelho"
+        ],
+        "stock": 25,
+        "featured": false,
+        "isNew": true,
+        "onSale": false,
+        "gender": "UNISEX"
+    }
+]

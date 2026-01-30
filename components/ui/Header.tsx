@@ -1,14 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
-import { ShoppingCart, Search, User, Menu, X } from 'lucide-react'
+import { ShoppingCart, Search, Menu, X } from 'lucide-react'
 import { useCart } from '@/lib/store'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
-    const { data: session } = useSession()
     const totalItems = useCart((state) => state.getTotalItems())
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -42,22 +40,10 @@ export default function Header() {
                         {/* Desktop Navigation */}
                         <nav className="hidden md:flex items-center space-x-8">
                             <Link
-                                href="/masculino"
+                                href="/catalogo"
                                 className="text-gray-300 hover:text-white transition-colors font-medium"
                             >
-                                Masculino
-                            </Link>
-                            <Link
-                                href="/feminino"
-                                className="text-gray-300 hover:text-white transition-colors font-medium"
-                            >
-                                Feminino
-                            </Link>
-                            <Link
-                                href="/lancamentos"
-                                className="text-gray-300 hover:text-white transition-colors font-medium"
-                            >
-                                Lançamentos
+                                Catálogo
                             </Link>
                             <Link
                                 href="/promocoes"
@@ -91,46 +77,6 @@ export default function Header() {
                                     </span>
                                 )}
                             </Link>
-
-                            {/* User Menu */}
-                            <div className="relative group">
-                                <button className="p-2 text-gray-300 hover:text-white transition-colors">
-                                    <User size={20} />
-                                </button>
-                                <div className="absolute right-0 mt-2 w-48 glass rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                                    {session ? (
-                                        <>
-                                            <Link
-                                                href="/conta"
-                                                className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                                            >
-                                                Minha Conta
-                                            </Link>
-                                            <button
-                                                onClick={() => signOut()}
-                                                className="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                                            >
-                                                Sair
-                                            </button>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Link
-                                                href="/auth/login"
-                                                className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                                            >
-                                                Entrar
-                                            </Link>
-                                            <Link
-                                                href="/auth/register"
-                                                className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                                            >
-                                                Cadastrar
-                                            </Link>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
 
                             {/* Mobile Menu Button */}
                             <button
@@ -169,11 +115,11 @@ export default function Header() {
                                     Feminino
                                 </Link>
                                 <Link
-                                    href="/lancamentos"
+                                    href="/catalogo"
                                     className="block py-3 text-gray-300 hover:text-white transition-colors"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Lançamentos
+                                    Catálogo
                                 </Link>
                                 <Link
                                     href="/promocoes"

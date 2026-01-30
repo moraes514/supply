@@ -1,26 +1,8 @@
-import { prisma } from '@/lib/prisma'
+import { getSaleProducts } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
 
-async function getSaleProducts() {
-    try {
-        const products = await prisma.product.findMany({
-            where: {
-                onSale: true,
-                active: true,
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        })
-
-        return products
-    } catch (error) {
-        return []
-    }
-}
-
-export default async function PromocoesPage() {
-    const products = await getSaleProducts()
+export default function PromocoesPage() {
+    const products = getSaleProducts()
 
     return (
         <div className="min-h-screen px-4 py-24">
@@ -47,7 +29,7 @@ export default async function PromocoesPage() {
                                 name={product.name}
                                 price={product.price}
                                 salePrice={product.salePrice || undefined}
-                                image={JSON.parse(product.images)[0]}
+                                image={product.images[0]}
                                 featured={product.featured}
                                 isNew={product.isNew}
                                 onSale={product.onSale}

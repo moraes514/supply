@@ -1,29 +1,11 @@
-import { prisma } from '@/lib/prisma'
+import { getAllProducts } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
 
-async function getProducts(gender: 'MALE' | 'FEMALE') {
-    try {
-        const products = await prisma.product.findMany({
-            where: {
-                active: true,
-                OR: [
-                    { gender },
-                    { gender: 'UNISEX' },
-                ],
-            },
-            orderBy: {
-                createdAt: 'desc',
-            },
-        })
-
-        return products
-    } catch (error) {
-        return []
-    }
-}
-
-export default async function MasculinoPage() {
-    const products = await getProducts('MALE')
+export default function MasculinoPage() {
+    // Filter for MALE and UNISEX products
+    const products = getAllProducts().filter(
+        (p) => p.gender === 'MALE' || p.gender === 'UNISEX'
+    )
 
     return (
         <div className="min-h-screen px-4 py-24">
@@ -50,7 +32,7 @@ export default async function MasculinoPage() {
                                 name={product.name}
                                 price={product.price}
                                 salePrice={product.salePrice || undefined}
-                                image={JSON.parse(product.images)[0]}
+                                image={product.images[0]}
                                 featured={product.featured}
                                 isNew={product.isNew}
                                 onSale={product.onSale}
