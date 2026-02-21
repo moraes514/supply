@@ -7,7 +7,7 @@ import productsDataRaw from '@/data/products.json'
 import categoriesData from '@/data/categories.json'
 
 // IDs de produtos que ainda não possuem imagens (serão ocultados temporariamente)
-const EXCLUDED_PRODUCT_IDS = ['66', '69', '70', '71', '75', '76', '77', '78', '79', '80', '81', '82', '83']
+const EXCLUDED_PRODUCT_IDS = ['66', '69', '70', '71', '76']
 
 const productsData = (productsDataRaw as Product[]).filter(p => !EXCLUDED_PRODUCT_IDS.includes(p.id))
 
@@ -89,6 +89,14 @@ export function getNewProducts(limit?: number): Product[] {
 export function getSaleProducts(limit?: number): Product[] {
     const onSale = productsData.filter((p) => p.onSale) as Product[]
     return limit ? onSale.slice(0, limit) : onSale
+}
+
+/**
+ * Retorna produtos essenciais (básicos/acessórios)
+ */
+export function getEssentialProducts(limit?: number): Product[] {
+    const essentials = productsData.filter((p) => (p as any).essential) as Product[]
+    return limit ? essentials.slice(0, limit) : essentials
 }
 
 /**

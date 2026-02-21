@@ -1,8 +1,10 @@
 import { getProductsByCategory } from '@/lib/data'
 import ProductCard from '@/components/product/ProductCard'
 
+// Página que lista todos os Tênis cadastrados no 'products.json'.
+
 export default function TenisPage() {
-    // Buscar apenas produtos com categoryId 'tenis'
+    // Aqui o site busca no products.json apenas os itens da categoria 'tenis'
     const sneakers = getProductsByCategory('tenis')
 
     return (
@@ -17,12 +19,15 @@ export default function TenisPage() {
                     </p>
                 </div>
 
+                {/* Se não houver nenhum tênis cadastrado, exibe uma mensagem de aviso */}
                 {sneakers.length === 0 ? (
                     <div className="text-center py-20">
-                        <p className="text-gray-400">Nenhum produto disponível</p>
+                        <p className="text-gray-400">Nenhum produto disponível no momento.</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    /* Grade (grid) que organiza os produtos em colunas adaptáveis ao celular/PC */
+                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {/* Aqui o site percorre a lista de tênis e cria um "Card" para cada um */}
                         {sneakers.map((product) => (
                             <ProductCard
                                 key={product.id}

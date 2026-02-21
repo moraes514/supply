@@ -1,19 +1,23 @@
 import HeroBanner from '@/components/ui/HeroBanner'
 import ProductCarousel from '@/components/product/ProductCarousel'
+
+// Esta é a Página Inicial (Home) do site.
+// Aqui definimos os carrosséis de produtos que aparecem logo de cara.
 import {
     getNewProducts,
     getFeaturedProducts,
+    getEssentialProducts,
     getSaleProducts,
     getAllProducts,
     type Product,
 } from '@/lib/data'
 
 export default function HomePage() {
-    // Buscar produtos estáticos
-    const newProducts = getNewProducts(8)
-    const bestSellers = getFeaturedProducts(8)
-    const essentials = getAllProducts().slice(0, 8)
-    const onSale = getSaleProducts(8)
+    // Aqui o site busca no 'products.json' grupos específicos de produtos:
+    const newProducts = getNewProducts(8)       // Busca os últimos 8 produtos marcados como "isNew"
+    const bestSellers = getFeaturedProducts(8)  // Busca os últimos 8 produtos marcados como "featured"
+    const essentials = getEssentialProducts(8)   // Busca os últimos 8 produtos marcados como essenciais
+    const onSale = getSaleProducts(8)           // Busca os últimos 8 produtos marcados como "onSale"
 
     // Transform products for carousel
     const transformProducts = (products: Product[]) =>
@@ -33,6 +37,7 @@ export default function HomePage() {
             <HeroBanner />
 
             <div className="bg-black">
+                {/* Carrossel de Lançamentos */}
                 {newProducts.length > 0 && (
                     <ProductCarousel
                         title="Lançamentos"
@@ -40,6 +45,7 @@ export default function HomePage() {
                     />
                 )}
 
+                {/* Carrossel de Mais Vendidos */}
                 {bestSellers.length > 0 && (
                     <ProductCarousel
                         title="Mais Vendidos"
@@ -47,6 +53,7 @@ export default function HomePage() {
                     />
                 )}
 
+                {/* Carrossel de Essenciais */}
                 {essentials.length > 0 && (
                     <ProductCarousel
                         title="Essenciais"
@@ -54,6 +61,7 @@ export default function HomePage() {
                     />
                 )}
 
+                {/* Carrossel de Promoções */}
                 {onSale.length > 0 && (
                     <ProductCarousel
                         title="Promoções"

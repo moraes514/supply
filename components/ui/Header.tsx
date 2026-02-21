@@ -1,5 +1,8 @@
 'use client'
 
+// O "Header" é o cabeçalho do site (onde fica o logo e o menu).
+// Ele aparece em todas as páginas do site.
+
 import Link from 'next/link'
 import { ShoppingCart, Search, Menu, X } from 'lucide-react'
 import { useCart } from '@/lib/store'
@@ -11,8 +14,10 @@ export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
 
     useEffect(() => {
+        setIsMounted(true)
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20)
         }
@@ -28,7 +33,7 @@ export default function Header() {
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-20">
-                        {/* Logo */}
+                        {/* Logo da Marca - Clicar aqui sempre volta para a Home */}
                         <Link href="/" className="flex items-center space-x-2">
                             <img
                                 src="/logo-stray.png"
@@ -37,7 +42,7 @@ export default function Header() {
                             />
                         </Link>
 
-                        {/* Desktop Navigation */}
+                        {/* Menu de Navegação para Computador (Desktop) */}
                         <nav className="hidden md:flex items-center space-x-8">
                             <div className="relative group">
                                 <Link
@@ -47,9 +52,11 @@ export default function Header() {
                                     <span>Catálogo</span>
                                 </Link>
                                 <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 backdrop-blur-lg border border-white/10 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                                    {/* Link para a categoria de Tênis */}
                                     <Link href="/catalogo/tenis" className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
                                         Sneakers (Tênis)
                                     </Link>
+                                    {/* Link para a categoria de Roupas */}
                                     <Link href="/catalogo/roupas" className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
                                         Streetwear (Roupas)
                                     </Link>
@@ -81,7 +88,7 @@ export default function Header() {
                                 aria-label="Carrinho"
                             >
                                 <ShoppingCart size={20} />
-                                {totalItems > 0 && (
+                                {isMounted && totalItems > 0 && (
                                     <span className="absolute -top-1 -right-1 bg-orange-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                                         {totalItems}
                                     </span>

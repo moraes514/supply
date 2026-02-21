@@ -1,5 +1,7 @@
 'use client'
 
+// O "ProductCard" é o quadradinho que mostra a foto e o preço do produto nas listas.
+
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -28,6 +30,7 @@ export default function ProductCard({
     onSale = false,
 }: ProductCardProps) {
     const [isHovered, setIsHovered] = useState(false)
+    // Se o produto estiver em promoção (onSale), usa o preço de oferta (salePrice)
     const displayPrice = onSale && salePrice ? salePrice : price
 
     return (
@@ -39,7 +42,7 @@ export default function ProductCard({
                 whileHover={{ y: -8 }}
                 transition={{ duration: 0.3 }}
             >
-                {/* Badges */}
+                {/* Etiquetas (Badges) de NOVO ou SALE que aparecem em cima da foto */}
                 <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
                     {isNew && (
                         <span className="bg-orange-primary text-white text-xs font-bold px-3 py-1 rounded-full">
@@ -78,17 +81,21 @@ export default function ProductCard({
                         {name}
                     </h3>
 
+                    {/* Preço do Produto */}
                     <div className="flex items-center gap-2">
                         {onSale && salePrice ? (
                             <>
+                                {/* Preço em oferta (laranja) */}
                                 <span className="text-orange-primary font-bold text-xl">
                                     {formatPrice(salePrice)}
                                 </span>
+                                {/* Preço original (riscado) */}
                                 <span className="text-gray-500 line-through text-sm">
                                     {formatPrice(price)}
                                 </span>
                             </>
                         ) : (
+                            /* Preço normal */
                             <span className="text-orange-primary font-bold text-xl">
                                 {formatPrice(price)}
                             </span>
