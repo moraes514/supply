@@ -3,8 +3,13 @@
 // ============================================
 // Helper functions para acessar produtos e categorias de arquivos JSON estáticos
 
-import productsData from '@/data/products.json'
+import productsDataRaw from '@/data/products.json'
 import categoriesData from '@/data/categories.json'
+
+// IDs de produtos que ainda não possuem imagens (serão ocultados temporariamente)
+const EXCLUDED_PRODUCT_IDS = ['66', '69', '70', '71', '75', '76', '77', '78', '79', '80', '81', '82', '83']
+
+const productsData = (productsDataRaw as Product[]).filter(p => !EXCLUDED_PRODUCT_IDS.includes(p.id))
 
 export interface Product {
     id: string

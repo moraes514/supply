@@ -39,12 +39,22 @@ export default function Header() {
 
                         {/* Desktop Navigation */}
                         <nav className="hidden md:flex items-center space-x-8">
-                            <Link
-                                href="/catalogo"
-                                className="text-gray-300 hover:text-white transition-colors font-medium"
-                            >
-                                Catálogo
-                            </Link>
+                            <div className="relative group">
+                                <Link
+                                    href="/catalogo"
+                                    className="text-gray-300 hover:text-white transition-colors font-medium flex items-center space-x-1"
+                                >
+                                    <span>Catálogo</span>
+                                </Link>
+                                <div className="absolute top-full left-0 mt-2 w-48 bg-black/90 backdrop-blur-lg border border-white/10 rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                                    <Link href="/catalogo/tenis" className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                                        Sneakers (Tênis)
+                                    </Link>
+                                    <Link href="/catalogo/roupas" className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors">
+                                        Streetwear (Roupas)
+                                    </Link>
+                                </div>
+                            </div>
                             <Link
                                 href="/promocoes"
                                 className="text-gray-300 hover:text-white transition-colors font-medium"
@@ -102,28 +112,44 @@ export default function Header() {
                             <nav className="px-4 py-4 space-y-2">
                                 <Link
                                     href="/masculino"
-                                    className="block py-3 text-gray-300 hover:text-white transition-colors"
+                                    className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Masculino
                                 </Link>
                                 <Link
                                     href="/feminino"
-                                    className="block py-3 text-gray-300 hover:text-white transition-colors"
+                                    className="block py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Feminino
                                 </Link>
                                 <Link
                                     href="/catalogo"
-                                    className="block py-3 text-gray-300 hover:text-white transition-colors"
+                                    className="block py-2 text-gray-300 hover:text-white transition-colors font-semibold mt-2"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
-                                    Catálogo
+                                    Catálogo Completo
                                 </Link>
+                                <div className="pl-4 space-y-1 mb-2">
+                                    <Link
+                                        href="/catalogo/tenis"
+                                        className="block py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        • Sneakers (Tênis)
+                                    </Link>
+                                    <Link
+                                        href="/catalogo/roupas"
+                                        className="block py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        • Streetwear (Roupas)
+                                    </Link>
+                                </div>
                                 <Link
                                     href="/promocoes"
-                                    className="block py-3 text-gray-300 hover:text-white transition-colors"
+                                    className="block py-3 text-gray-300 hover:text-white transition-colors border-t border-white/5"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     Promoções
